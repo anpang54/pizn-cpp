@@ -1,6 +1,6 @@
 #include <iostream>
 #include <vector>
-#include <tuple> // Probably not needed
+#include <locale>
 using namespace std;
 
 const string nl = "\n"; // Newline
@@ -14,6 +14,12 @@ void printStr(string message) {
 
 void error(string message) {
   cout << "Error at line " << doLine << ":" << nl << tdent << message;
+}
+
+string toLower(string s) {        
+  for(char &c: s)
+    c = tolower(c);
+  return s;
 }
 
 void printList(vector<string> const &a) {
@@ -45,7 +51,7 @@ vector<string> stSplit(string s,string delimiter) {
 
 vector<vector<string>> splitFunc(string funcAsString) {
   vector<string> ct = split(funcAsString,"(");
-  vector<string> gtArgs = split(ct[0],".");
+  vector<string> gtArgs = split(toLower(ct[0]),".");
   vector<string> gtParams = stSplit(ct[1].substr(0,ct[1].size() - 1),",");
   vector<vector<string>> gtFinal = {gtArgs,gtParams};
   return gtFinal;
@@ -55,9 +61,11 @@ void runOneLine(string lineAsString) {
   vector<vector<string>> ct = splitFunc(lineAsString);
   string module = ct[0][0];
   string function = ct[0][1];
+  vector<string> params = ct[1];
   if (module == "main") {
     if (function == "print") {
-      printStr(param(0));
+      printStr(params[0]);
+      
     } else {
       error("Module \"" + module + "\" doesn't have function \"" + function + "\".");
     }
@@ -67,12 +75,12 @@ void runOneLine(string lineAsString) {
 }
 
 void runPiznCode() {
-  runOneLine("mains.prints(hello,hgaha,crunchtt,'Monachel)"); // temporary
+  runOneLine("mAin.print(Entirely a test)"); // temporary
 }
 
 int main() {
-  cout << "<//  Pizn Compiler  //>\n\n...\n\n";
+  printStr("<//  Pizn Compiler  //>\n\n...\n\n");
   runPiznCode();
-  cout << "\n\n...\n\nProcess finished.";
+  printStr("\n\n...\n\nProcess finished.");
   return 0;
 }
