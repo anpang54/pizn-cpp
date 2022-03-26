@@ -11,8 +11,12 @@ const string tdent = "    "; // Two indent
 int doing = 0;
 int doLine = 1;
 
+int i = 0;
 string builder = "";
 string checker = "";
+vector<string> olr; // One line ram
+vector<string> mlr; // Many line ram
+
 vector<string> errorList;
 int errorCount = 0;
 vector<string> logs;
@@ -126,13 +130,15 @@ void runOneLine(string lineAsString) {
 
 // Run multiple lines
 void runPiznCode(const vector<string> code) {
-  runOneLine("main.print(Entirely a test)"); // temporary
+  for(string i: code) {
+    runOneLine(i);
+  } 
 }
 
 // Int main
 int main() {
 
-  vector<string> codeToRun = {"ddd","dddd"};
+  vector<string> codeToRun = {"main.print(Hello, World!)"};
   
   printStr("<//  Pizn Compiler  //>\n\n...\n\n");
   runPiznCode(codeToRun);
