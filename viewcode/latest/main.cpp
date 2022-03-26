@@ -25,27 +25,40 @@ vector<string> args;
 vector<string> params;
 
 // Constants
-const string logBegin = "/[/<[/";
-const string nl = "\n"; // Newline
+const string logBegin = "/[/<[/ Logged \\]>\\]\\: ";
+const string nl = "\n"; // Newline, use instead of endl and/or "\n"
 const string tdent = "    "; // Two indent
+
+// Configs
+bool enableStrict = false;
+bool showLogs = false;
+bool showErrors = true;
 
 // Really general functions
 void printStr(string message) {
-  cout << message;
+  cout << message << nl;
 }
 
 void log(string message) {
   logs.push_back(message);
-  cout << logBegin << " Logged: " << message;
+  if (showLogs) {
+    cout << logBegin << message << nl;
+  }
 }
 
 void error(string message) {
   errorList.push_back(string(string("Line: " + doLine) + ", Message: ") + message);
   errorCount++;
-  cout << "Error at line " << doLine << ":" << nl << tdent << message;
+  if (showErrors) {
+    cout << "Error at line " << doLine << ":" << nl << tdent << message;
+  }
 }
 
-void returns(auto returned) {
+void notHave(string more = "") {
+  error("Module \"" + module + "\" doesn't have function \"" + func + "\"." + more);
+}
+
+void returns(string returned) {
   printStr("A function returned: " + returned); // temporary
 }
 
@@ -128,6 +141,10 @@ void formatUnderscores(string toFormat) {
   // temporary
 }
 
+void math_22(string func,string param0,string param1) {
+  // nothing(temporary)
+}
+
 // Run one line of the code
 void runOneLine(string lineAsString) {
   vector<vector<string>> ct = splitFunc(lineAsString);
@@ -138,10 +155,31 @@ void runOneLine(string lineAsString) {
     if (func == "print") {
       printStr(param(0));
     } else if (func == "ask") {
+      log("Main.Ask() used. Now waiting for user input");
       returns(askStr(param(0)));
     } else {
-      error("Module \"" + module + "\" doesn't have function \"" + func + "\".");
+      notHave();
     }
+  } else if (module == "strict") {
+    if (func == "enabled") {
+      if (param(0) == "true") {
+        enableStrict = true;
+      } else if (param(0) == "false") {
+        enableStrict = false;
+      } else {
+        error("Can only be true or false.");
+      }
+    } else if (enableStrict == true) {
+      if (func == "setvals") {
+        // temporary
+      } else {
+        notHave();
+      }
+    } else {
+      notHave(" Also, strict mode is not enabled.");
+    }
+  } else if (module == "math") {
+    returns(math_22(func,param(0),param(1)));
   } else {
     error("Unknown module \"" + module + "\".");
   }
@@ -157,7 +195,9 @@ void runPiznCode(const vector<string> code) {
 // Int main
 int main() {
 
-  vector<string> codeToRun = {"main.ask(\"Hello, World!\")"};
+  vector<string> codeToRun = {
+    "strict.enabsled(true)"
+  };
   
   printStr("<//  Pizn Compiler  //>\n\n...\n\n");
   runPiznCode(codeToRun);
