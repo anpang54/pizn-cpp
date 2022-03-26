@@ -10,6 +10,8 @@ The pizn/viewcode directory contains 4 subdirectories:
 | [/beta_pie](https://github.com/piznium/pizn/tree/main/viewcode/beta_pie) | Latest Beta Pie Version | The most recent beta/preview version of Pie. |
 
 ### viewcode/latest Files
-| File | Description |
-| - | - |
-| [/main.cpp](https://github.com/piznium/pizn/blob/main/viewcode/latest/main.cpp) | The main C++ file containing most code. |
+| File | Description | Hosts |
+| - | - | - |
+| [/main.cpp](https://github.com/piznium/pizn/blob/main/viewcode/latest/main.cpp) | The main C++ file containing most code. | Many modules |
+| [/comms.txt](https://github.com/piznium/pizn/blob/main/viewcode/latest/comms.txt) | The file where the other code files send data. | *none* |
+| [/main.java](https://github.com/piznium/pizn/blob/main/viewcode/latest/main.java) | The main Java file containing most Java-related code. | `game` and `graphics` modules.
