@@ -13,5 +13,6 @@ The pizn/viewcode directory contains 4 subdirectories:
 | File | Description | Hosts |
 | - | - | - |
 | [/main.cpp](https://github.com/piznium/pizn/blob/main/viewcode/latest/main.cpp) | The main C++ file containing most code. | Many modules |
-| [/comms.txt](https://github.com/piznium/pizn/blob/main/viewcode/latest/comms.txt) | The file where the other code files send data. | *none* |
+| [/comms.json](https://github.com/piznium/pizn/blob/main/viewcode/latest/comms.json) | The file where the other code files send data to each other. | *none* |
+| [/cross.json](https://github.com/piznium/pizn/blob/main/viewcode/latest/cross.json) | The file where cross-file variables are stored at. | *none* |
 | [/main.java](https://github.com/piznium/pizn/blob/main/viewcode/latest/main.java) | The main Java file containing most Java-related code. | `game` and `graphics` modules.
