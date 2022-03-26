@@ -2,6 +2,7 @@
 #include <iostream>
 #include <vector>
 #include <locale>
+#include <string>
 using namespace std;
 
 // Global variables
@@ -9,14 +10,32 @@ const string nl = "\n"; // Newline
 const string tdent = "    "; // Two indent
 int doing = 0;
 int doLine = 1;
+string builder = "";
+
+vector<string> errorList;
+int errorCount = 0;
+vector<string> logs;
+
+vector<string> params;
 
 // Really general functions
 void printStr(string message) {
   cout << message;
 }
 
+void log(string message) {
+  logs.push_back(message);
+  cout << "Something logged:\n" << tdent << message;
+}
+
 void error(string message) {
+  errorList.push_back(string(string("Line: " + doLine) + ", Message: ") + message);
+  errorCount++;
   cout << "Error at line " << doLine << ":" << nl << tdent << message;
+}
+
+auto param(int index) {
+  return params[index];
 }
 
 string toLower(string s) {        
@@ -25,11 +44,17 @@ string toLower(string s) {
   }
   return s;
 }
+
 string toUpper(string s) {
   for(char &c: s) {
     c = toupper(c);
   }
   return s;
+}
+
+string typeify(string todo) {
+  // This is supposed to remove quotes if its strings
+  return todo; // Temporary
 }
 
 void printList(vector<string> const &a) {
@@ -70,14 +95,14 @@ vector<vector<string>> splitFunc(string funcAsString) {
 int askInt(string prompt) {
   int answer;
   printStr(prompt);
-  getline(cin, answer);
+  // getline(cin, answer); broken
   return answer;
 }
 
 string askStr(string prompt) {
   string answer;
   printStr(prompt);
-  getline(cin, answer);
+  // getline(cin, answer); broken
   return answer;
 }
 
@@ -86,10 +111,10 @@ void runOneLine(string lineAsString) {
   vector<vector<string>> ct = splitFunc(lineAsString);
   string module = ct[0][0];
   string function = ct[0][1];
-  vector<string> params = ct[1];
+  params = ct[1]; // Already defined in global form
   if (module == "main") {
     if (function == "print") {
-      printStr(params[0]);
+      printStr(typeify(param(0)));
     } else {
       error("Module \"" + module + "\" doesn't have function \"" + function + "\".");
     }
@@ -100,15 +125,13 @@ void runOneLine(string lineAsString) {
 
 // Run multiple lines
 void runPiznCode() {
-  runOneLine("mAin.print(Entirely a test)"); // temporary
+  runOneLine("main.print(Entirely a test)"); // temporary
 }
 
 // Int main
 int main() {
-  int repeat;
-  repeat = askInt("How many lines of code do you want to do?");
-  string lines[repeat];
-  for (int i = doing; i < repeat; i++) {
-    // some code collecting stuff here
-  }
+  printStr("<//  Pizn Compiler  //>\n\n...\n\n");
+  runPiznCode();
+  printStr("\n\n...\n\nProcess finished.");
+  return 0;
 }
