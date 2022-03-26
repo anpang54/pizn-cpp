@@ -4,7 +4,7 @@
 using namespace std;
 
 const string nl = "\n"; // Newline
-const string tdent = "  "; // Two indent
+const string tdent = "    "; // Two indent
 int doing = 0;
 int doLine = 1;
 
@@ -17,8 +17,15 @@ void error(string message) {
 }
 
 string toLower(string s) {        
-  for(char &c: s)
+  for(char &c: s) {
     c = tolower(c);
+  }
+  return s;
+}
+string toUpper(string s) {
+  for(char &c: s) {
+    c = toupper(c);
+  }
   return s;
 }
 
@@ -65,7 +72,6 @@ void runOneLine(string lineAsString) {
   if (module == "main") {
     if (function == "print") {
       printStr(params[0]);
-      
     } else {
       error("Module \"" + module + "\" doesn't have function \"" + function + "\".");
     }
