@@ -141,8 +141,9 @@ void formatUnderscores(string toFormat) {
   // temporary
 }
 
-void math_22(string func,string param0,string param1) {
+auto math_22(string func,string param0,string param1) {
   // nothing(temporary)
+  return ""; //temporary
 }
 
 // Run one line of the code
