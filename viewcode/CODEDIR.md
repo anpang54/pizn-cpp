@@ -1,6 +1,7 @@
 **README:** [Main](https://github.com/piznium/pizn/blob/main/README.md) | [License](https://github.com/piznium/pizn/blob/main/LICENSE.md) | [Notes](https://github.com/piznium/pizn/blob/main/NOTES.md) | [**Code Directory**](https://github.com/piznium/pizn/blob/main/viewcode/CODEDIR.md)
 
-### Vviewcode Directory
+### Viewcode Directory
+The pizn/viewcode directory contains 4 subdirectories:
 | Directory | Name | Description |
 | - | - | - |
 | [/latest](https://github.com/piznium/pizn/tree/main/viewcode/latest) | Latest Pizn Version | The most recent stable version of Pizn. Should be the one that's imported. |
