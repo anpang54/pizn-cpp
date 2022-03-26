@@ -7,11 +7,8 @@
 using namespace std;
 
 // Global variables
-const string nl = "\n"; // Newline
-const string tdent = "    "; // Two indent
 int doing = 0;
 int doLine = 1;
-
 int i = 0;
 string builder = "";
 string checker = "";
@@ -22,10 +19,15 @@ vector<string> errorList;
 int errorCount = 0;
 vector<string> logs;
 
+string module;
+string func;
+vector<string> args;
 vector<string> params;
 
 // Constants
-string logBegin = "/[/<[/";
+const string logBegin = "/[/<[/";
+const string nl = "\n"; // Newline
+const string tdent = "    "; // Two indent
 
 // Really general functions
 void printStr(string message) {
@@ -41,6 +43,10 @@ void error(string message) {
   errorList.push_back(string(string("Line: " + doLine) + ", Message: ") + message);
   errorCount++;
   cout << "Error at line " << doLine << ":" << nl << tdent << message;
+}
+
+void returns(auto returned) {
+  printStr("A function returned: " + returned); // temporary
 }
 
 string replace(string str,string replaceThis,string replaceWith) {
@@ -107,17 +113,10 @@ vector<vector<string>> splitFunc(string funcAsString) {
   return gtFinal;
 }
 
-int askInt(string prompt) {
-  int answer;
-  printStr(prompt);
-  // getline(cin, answer); broken
-  return answer;
-}
-
 string askStr(string prompt) {
   string answer;
-  printStr(prompt);
-  // getline(cin, answer); broken
+  cout << prompt; // Use cout << not printStr
+  getline(cin, answer);
   return answer;
 }
 
@@ -125,21 +124,23 @@ string askStr(string prompt) {
 const vector<string> underscoreNames = {"cm","comma","dt","dot","period","dsd"};
 const vector<string> underscoreDatas = {",",",",".",".",".","-/-"};
 
-string formatUnderscores(string toFormat) {
+void formatUnderscores(string toFormat) {
   // temporary
 }
 
 // Run one line of the code
 void runOneLine(string lineAsString) {
   vector<vector<string>> ct = splitFunc(lineAsString);
-  string module = ct[0][0];
-  string function = ct[0][1];
-  params = ct[1]; // Already defined in global form
+  module = ct[0][0];
+  func = ct[0][1];
+  params = ct[1];
   if (module == "main") {
-    if (function == "print") {
+    if (func == "print") {
       printStr(param(0));
+    } else if (func == "ask") {
+      returns(askStr(param(0)));
     } else {
-      error("Module \"" + module + "\" doesn't have function \"" + function + "\".");
+      error("Module \"" + module + "\" doesn't have function \"" + func + "\".");
     }
   } else {
     error("Unknown module \"" + module + "\".");
@@ -156,7 +157,7 @@ void runPiznCode(const vector<string> code) {
 // Int main
 int main() {
 
-  vector<string> codeToRun = {"main.print(\"Hello, World!\")"};
+  vector<string> codeToRun = {"main.ask(\"Hello, World!\")"};
   
   printStr("<//  Pizn Compiler  //>\n\n...\n\n");
   runPiznCode(codeToRun);
