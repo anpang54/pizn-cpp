@@ -3,6 +3,7 @@
 #include <vector>
 #include <locale>
 #include <string>
+#include <regex>
 using namespace std;
 
 // Global variables
@@ -23,6 +24,9 @@ vector<string> logs;
 
 vector<string> params;
 
+// Constants
+string logBegin = "/[/<[/";
+
 // Really general functions
 void printStr(string message) {
   cout << message;
@@ -30,7 +34,7 @@ void printStr(string message) {
 
 void log(string message) {
   logs.push_back(message);
-  cout << "Something logged:\n" << tdent << message;
+  cout << logBegin << " Logged: " << message;
 }
 
 void error(string message) {
@@ -39,8 +43,19 @@ void error(string message) {
   cout << "Error at line " << doLine << ":" << nl << tdent << message;
 }
 
+string replace(string str,string replaceThis,string replaceWith) {
+  string test = str;
+  test = regex_replace(test, regex(replaceThis), replaceWith);
+  return test;
+}
+
+string typeify(string todo) {
+  // This is supposed to remove quotes if its strings
+  return todo; // Temporary
+}
+
 auto param(int index) {
-  return params[index];
+  return typeify(params[index]);
 }
 
 string toLower(string s) {        
@@ -55,11 +70,6 @@ string toUpper(string s) {
     c = toupper(c);
   }
   return s;
-}
-
-string typeify(string todo) {
-  // This is supposed to remove quotes if its strings
-  return todo; // Temporary
 }
 
 void printList(vector<string> const &a) {
@@ -111,6 +121,14 @@ string askStr(string prompt) {
   return answer;
 }
 
+// Constants for formatUnderscores
+const vector<string> underscoreNames = {"cm","comma","dt","dot","period","dsd"};
+const vector<string> underscoreDatas = {",",",",".",".",".","-/-"};
+
+string formatUnderscores(string toFormat) {
+  // temporary
+}
+
 // Run one line of the code
 void runOneLine(string lineAsString) {
   vector<vector<string>> ct = splitFunc(lineAsString);
@@ -119,7 +137,7 @@ void runOneLine(string lineAsString) {
   params = ct[1]; // Already defined in global form
   if (module == "main") {
     if (function == "print") {
-      printStr(typeify(param(0)));
+      printStr(param(0));
     } else {
       error("Module \"" + module + "\" doesn't have function \"" + function + "\".");
     }
@@ -130,7 +148,7 @@ void runOneLine(string lineAsString) {
 
 // Run multiple lines
 void runPiznCode(const vector<string> code) {
-  for(string i: code) {
+  for (string i: code) {
     runOneLine(i);
   } 
 }
@@ -138,7 +156,7 @@ void runPiznCode(const vector<string> code) {
 // Int main
 int main() {
 
-  vector<string> codeToRun = {"main.print(Hello, World!)"};
+  vector<string> codeToRun = {"main.print(\"Hello, World!\")"};
   
   printStr("<//  Pizn Compiler  //>\n\n...\n\n");
   runPiznCode(codeToRun);
