@@ -1,13 +1,16 @@
+// Imports
 #include <iostream>
 #include <vector>
 #include <locale>
 using namespace std;
 
+// Global variables
 const string nl = "\n"; // Newline
 const string tdent = "  "; // Two indent
 int doing = 0;
 int doLine = 1;
 
+// Really general functions
 void printStr(string message) {
   cout << message;
 }
@@ -57,6 +60,7 @@ vector<vector<string>> splitFunc(string funcAsString) {
   return gtFinal;
 }
 
+// Run one line of the code
 void runOneLine(string lineAsString) {
   vector<vector<string>> ct = splitFunc(lineAsString);
   string module = ct[0][0];
@@ -74,10 +78,12 @@ void runOneLine(string lineAsString) {
   }
 }
 
+// Run multiple lines
 void runPiznCode() {
   runOneLine("mAin.print(Entirely a test)"); // temporary
 }
 
+// Int main
 int main() {
   printStr("<//  Pizn Compiler  //>\n\n...\n\n");
   runPiznCode();
