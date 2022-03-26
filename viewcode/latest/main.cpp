@@ -67,6 +67,20 @@ vector<vector<string>> splitFunc(string funcAsString) {
   return gtFinal;
 }
 
+int askInt(string prompt) {
+  int answer;
+  printStr(prompt);
+  getline(cin, answer);
+  return answer;
+}
+
+string askStr(string prompt) {
+  string answer;
+  printStr(prompt);
+  getline(cin, answer);
+  return answer;
+}
+
 // Run one line of the code
 void runOneLine(string lineAsString) {
   vector<vector<string>> ct = splitFunc(lineAsString);
@@ -91,8 +105,10 @@ void runPiznCode() {
 
 // Int main
 int main() {
-  printStr("<//  Pizn Compiler  //>\n\n...\n\n");
-  runPiznCode();
-  printStr("\n\n...\n\nProcess finished.");
-  return 0;
+  int repeat;
+  repeat = askInt("How many lines of code do you want to do?");
+  string lines[repeat];
+  for (int i = doing; i < repeat; i++) {
+    // some code collecting stuff here
+  }
 }
