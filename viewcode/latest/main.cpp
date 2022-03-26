@@ -10,8 +10,9 @@ const string nl = "\n"; // Newline
 const string tdent = "    "; // Two indent
 int doing = 0;
 int doLine = 1;
-string builder = "";
 
+string builder = "";
+string checker = "";
 vector<string> errorList;
 int errorCount = 0;
 vector<string> logs;
@@ -124,14 +125,17 @@ void runOneLine(string lineAsString) {
 }
 
 // Run multiple lines
-void runPiznCode() {
+void runPiznCode(const vector<string> code) {
   runOneLine("main.print(Entirely a test)"); // temporary
 }
 
 // Int main
 int main() {
+
+  vector<string> codeToRun = {"ddd","dddd"};
+  
   printStr("<//  Pizn Compiler  //>\n\n...\n\n");
-  runPiznCode();
+  runPiznCode(codeToRun);
   printStr("\n\n...\n\nProcess finished.");
   return 0;
 }
