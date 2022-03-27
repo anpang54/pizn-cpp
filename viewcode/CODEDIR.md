@@ -26,4 +26,4 @@ The pizn/viewcode directory contains 4 subdirectories:
 | /multil/execlua.lua | The Lua file for the `MultiL` module. | `MultiL.RunLua()` |
 
 #### Notes and references
-* There is no `execc.c` file because there is no `MultiL.RunC()` as all C code can be ran in C++.
+* There is no `execc.c` file because there is no `MultiL.RunC()` as all C code can be ran in C++. And there is also no `execcpp.cpp`, of course.
