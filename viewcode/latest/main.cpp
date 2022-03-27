@@ -10,8 +10,10 @@ using namespace std;
 int doing = 0;
 int doLine = 1;
 int i = 0;
+
 string builder = "";
 string checker = "";
+string response = "";
 vector<string> olr; // One line ram
 vector<string> mlr; // Many line ram
 
@@ -56,6 +58,10 @@ void error(string message) {
 
 void notHave(string more = "") {
   error("Module \"" + module + "\" doesn't have function \"" + func + "\"." + more);
+}
+
+void mainOnExit() {
+  printStr("\n\n...\n\nProcess finished.");
 }
 
 void returns(string returned) {
@@ -156,8 +162,14 @@ void runOneLine(string lineAsString) {
     if (func == "print") {
       printStr(param(0));
     } else if (func == "ask") {
-      log("Main.Ask() used. Now waiting for user input");
+      log("Main.Ask() used. Now waiting for user input.");
       returns(askStr(param(0)));
+    } else if (func == "exit") {
+      log("Main.Exit used, now intentionally exiting.");
+      mainOnExit();
+      exit(0); // The 0 is required
+    } else if (func == "loglist") {
+    } else if (func == "errlist") {
     } else {
       notHave();
     }
@@ -180,7 +192,12 @@ void runOneLine(string lineAsString) {
       notHave(" Also, strict mode is not enabled.");
     }
   } else if (module == "math") {
-    returns(math_22(func,param(0),param(1)));
+    checker = math_22(func,param(0),param(1));
+    if (checker == "err") {
+      error(response);
+    } else {
+      returns(checker);
+    }
   } else {
     error("Unknown module \"" + module + "\".");
   }
@@ -193,15 +210,13 @@ void runPiznCode(const vector<string> code) {
   } 
 }
 
-// Int main
+// int main
 int main() {
-
-  vector<string> codeToRun = {
-    "strict.enabsled(true)"
-  };
+  string codeToRun = "main.print(test);main.exit();";
   
+  vector<string> codeToRunNoColon = split(codeToRun,";");
   printStr("<//  Pizn Compiler  //>\n\n...\n\n");
-  runPiznCode(codeToRun);
-  printStr("\n\n...\n\nProcess finished.");
+  runPiznCode(codeToRunNoColon);
+  mainOnExit();
   return 0;
 }
