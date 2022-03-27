@@ -97,6 +97,9 @@ string toUpper(string s) {
   return s;
 }
 
+void waitUntilFileIsnt(string file,string data) {
+}
+
 void printList(vector<string> const &a) {
   cout << "Elements: " << nl;
   for(int i = 0; i < a.size(); i++) {
