@@ -4,7 +4,8 @@
 The pizn/viewcode directory contains 4 subdirectories:
 | Directory | Name | Description |
 | - | - | - |
-| [/latest](https://github.com/piznium/pizn/tree/main/viewcode/latest) | Latest Pizn Version | The most recent stable version of Pizn. Should be the one that's imported. |
+| [/pizn](https://github.com/piznium/pizn/tree/main/viewcode/pizn) | Latest Pizn Version | The most recent stable version of Pizn. Should be the one that's imported. |
+| [/latest](https://github.com/piznium/pizn/tree/main/viewcode/latest) | Latest Pizn Version (2) | The most recent stable version of Pizn. |
 | [/beta](https://github.com/piznium/pizn/tree/main/viewcode/beta) | Latest Beta Pizn Version | The most recent beta/preview version of Pizn. |
 | [/latest_pie](https://github.com/piznium/pizn/tree/main/viewcode/latest_pie) | Latest Pie Version | The most recent stable version of Pie. |
 | [/beta_pie](https://github.com/piznium/pizn/tree/main/viewcode/beta_pie) | Latest Beta Pie Version | The most recent beta/preview version of Pie. |
