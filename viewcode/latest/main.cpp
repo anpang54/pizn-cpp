@@ -74,10 +74,18 @@ string replace(string str,string replaceThis,string replaceWith) {
   return test;
 }
 
-string typeify(string todo) {
-  // This is supposed to remove quotes if its strings
-  return todo; // Temporary
-}
+vector<string> typeify(string todo) {
+  vector<string> result;
+  for (int idx = 0; idx < todo.length(); idx++) {
+    if (idx == 0 && (todo[idx] == "\"" || todo[idx] == "'")) {
+      continue;
+    } else if (idx == todo.length() && (todo[idx] == "\"" || todo[idx] == "'")) {
+      continue;
+    } else {
+      result.push_back(todo[idx]);
+    }
+  return result;
+} // WDWDN
 
 auto param(int index) {
   return typeify(params[index]);
@@ -146,8 +154,31 @@ string askStr(string prompt) {
 const vector<string> underscoreNames = {"cm","comma","dt","dot","period","dsd"};
 const vector<string> underscoreDatas = {",",",",".",".",".","-/-"};
 
-void formatUnderscores(string toFormat) {
-  // temporary
+bool contains(string search, string[6] arrayToSearch) {
+  for (int idx = 0; idx < arrayToSearch.length(); idx++) {
+    if (arrayToSearch[idx] == search) {
+      return true;
+    }
+  }
+  return false;
+}
+
+string formatUnderscores(string toFormat) {
+  if (contains(toFormat, underscoreNames)) {
+    for (int idx = 0; idx < underscoreNames.length(); idx++) {
+      if (underscoreNames[idx] == toFormat) {
+        return underscoreDatas[idx];
+      }
+    }
+  } else if (contains(toFormat, underscoreDatas)) {
+    for (int idx = 0; idx < underscoreDatas.length(); idx++) {
+      if (underscoreDatas[idx] == toFormat) {
+        return underscoreNames[idx];
+      }
+    }
+  } else {
+    return "Error: " + toFormat + " not in an array.";
+  }
 }
 
 auto math_22(string func,string param0,string param1) {
