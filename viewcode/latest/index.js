@@ -22,6 +22,29 @@ let enableStrict = false;
 let showLogs = false;
 let showErrors = true;
 
+// NEW FUNCTION \\
+function debug() {
+  print([
+    doing,
+    doLine,
+    i,
+    builder,
+    checker,
+    response,
+    olr,
+    mlr,
+    errorList,
+    errorCount,
+    logs,
+    args,
+    logBegin,
+    nl,
+    tdent,
+    enableStrict,
+    showLogs,
+    showErrors,
+  ], true);
+}
 function print(toPrint, console, id=null) {
   if (console) {
     console.log(toPrint);
